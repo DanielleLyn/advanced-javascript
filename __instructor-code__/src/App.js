@@ -1,33 +1,40 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
+import logo from './logo.svg';
 import './App.css';
 
-// class MyError extends Error{
-//   toString(){
-//     return "A REALLY NAUGHTY THING HAPPENED: " + this.message
+// class MyError extends Error {
+//   constructor(message) {
+//     super();
+//     this.message = message;
 //   }
+//   // toString() {
+//   //   return "A SUPER bad error occurred: " + this.message
+//   // }
+// }
+
+// MyError.prototype.toString = function() {
+//   return "A SUPER bad error occurred: " + this.message
 // }
 
 class App extends Component {
   state = {
-    jsonString: `{"name": "Danielle"}`,
+    jsonString: `{"name": "tyler"}`,
     fieldToGrab: 'name',
     message: '',
   }
 
   doNaughtyThing = () => {
-    throw new MyError('something naughty happened')
+    throw new Error('something bad happened2')
   }
 
   getFieldValueFromJSON = () => {
-    try{
+    try {
       const jsonObject = JSON.parse(this.state.jsonString)
+      this.setState({ message: "The value is: " + jsonObject[this.state.fieldToGrab] })
       // this.doNaughtyThing()
-      // this.setState({ message: "The value is: " + jsonObject[this.state.fieldToGrab] })
-    } catch(err){
-      console.log('------', err);
-      this.setState({message: "Error" + err.message })
-
+    } catch (err) {
+      console.log('-------------- err', err);
+      this.setState({ message: "Error" + err })
     } finally {
       console.log('finally')
     }
